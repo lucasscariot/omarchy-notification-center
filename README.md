@@ -4,6 +4,8 @@ A themed notification drawer with expandable app stacks, individual and bulk
 dismissal, and links back to the sending application. Open it through Omarchy
 IPC, or use the optional two-finger edge gesture helper.
 
+![Notification Center open on the Omarchy desktop, showing grouped notifications and an expanded app stack](docs/images/notification-center.png)
+
 > **Touchpad compatibility:** Edge swipes currently support only the
 > **FTCS1012:00 2808:0251 Touchpad** (vendor `2808`, product `0251`). The helper
 > also requires **UID/GID 1000**. Other touchpads are not supported by the
