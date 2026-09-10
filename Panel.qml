@@ -167,7 +167,7 @@ Item {
 
         WlrLayershell.keyboardFocus: visible && (root.opened || root.dragging) ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
         WlrLayershell.layer: WlrLayer.Overlay
-        WlrLayershell.namespace: "lucas-notification-center"
+        WlrLayershell.namespace: "lucasscariot-notification-center"
         color: "transparent"
         exclusiveZone: 0
         screen: Quickshell.screens.find(s => s.name === "eDP-1") || Quickshell.screens[0]

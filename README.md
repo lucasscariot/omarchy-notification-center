@@ -22,13 +22,21 @@ Python 3.9 or newer at `/usr/bin/python`, and the usual Omarchy application
 tools (`hyprctl`, `xdg-open`, and `gtk-launch`) for opening notifications.
 Python uses only the standard library.
 
+Install from GitHub:
+
+```sh
+omarchy plugin add https://github.com/lucasscariot/omarchy-notification-center.git --enable
+```
+
+For a manual installation:
+
 Place this project's contents in
-`~/.config/omarchy/plugins/lucas.notification-center/`, including `backend/`,
+`~/.config/omarchy/plugins/lucasscariot.notification-center/`, including `backend/`,
 then enable it:
 
 ```sh
-omarchy plugin validate ~/.config/omarchy/plugins/lucas.notification-center
-omarchy plugin enable lucas.notification-center
+omarchy plugin validate ~/.config/omarchy/plugins/lucasscariot.notification-center
+omarchy plugin enable lucasscariot.notification-center
 omarchy-shell notification-center open
 ```
 
