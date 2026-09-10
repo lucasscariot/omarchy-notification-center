@@ -1,0 +1,13 @@
+# Local agent tooling is not part of the plugin distribution.
+.agents/
+.codex/
+.scratch/
+skills-lock.json
+
+__pycache__/
+*.py[cod]
+build/
+*.qmlc
+*.jsc
+*.bak
+*.log

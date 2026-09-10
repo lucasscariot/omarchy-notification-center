@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "lucas.notification-center",
+  "name": "Notification Center",
+  "version": "1.0.0",
+  "author": "Lucas",
+  "description": "Notification drawer controlled by a two-finger swipe from the trackpad's right edge",
+  "kinds": ["panel"],
+  "keepLoaded": true,
+  "entryPoints": { "panel": "Panel.qml" }
+}
