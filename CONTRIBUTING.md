@@ -50,6 +50,14 @@ Before a release, verify on a running Omarchy shell:
    and confirm cleared items stay hidden after archival.
 3. Test app focus, app launch, an explicit link, and an unavailable app.
 4. Check Escape, outside clicks, Tab/Enter/Space, scrolling, and theme changes.
+   Open on one workspace, switch to another, then close: the current workspace
+   must stay selected. Also check Escape after a rapid close/reopen during the
+   closing animation. Keep the layer keyboard-interactive until it unmaps;
+   setting its focus mode to `None` during the animation can restore an old
+   workspace on Hyprland.
+   `python3 tests/check_workspace.py` checks the IPC-close case in a live session
+   and restores the starting workspace. This opt-in check is excluded from
+   `make test` because it manipulates the desktop.
 5. If changing the optional helper, test ordinary pointer movement, scrolling,
    clicks, three-finger gestures, partial/reversed swipes, and service recovery
    on the supported physical touchpad. Keep a terminal available for stopping

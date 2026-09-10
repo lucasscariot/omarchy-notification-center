@@ -165,7 +165,11 @@ Item {
     PanelWindow {
         id: surface
 
-        WlrLayershell.keyboardFocus: visible && (root.opened || root.dragging) ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+        // Keep the closing surface interactive until it unmaps. Switching to None
+        // mid-animation makes Hyprland refocus the old window beneath this layer,
+        // even if the user has since switched workspaces. OnDemand allows other
+        // windows to take focus without waiting for the closing animation.
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.namespace: "lucasscariot-notification-center"
         color: "transparent"
