@@ -31,7 +31,7 @@ Item {
             activateRequested(item);
     }
 
-    implicitHeight: front.implicitHeight + (!expanded && count > 1 ? 9 : 0)
+    implicitHeight: front.implicitHeight
 
     // Consume clicks throughout the stack, including its padding and layered
     // edges, so they cannot reach the drawer's outside-click dismiss area.
@@ -45,31 +45,13 @@ Item {
         }
     }
     Rectangle {
-        color: Qt.alpha(Color.foreground, 0.04)
-        height: front.implicitHeight
-        radius: 12
-        visible: !root.expanded && root.count > 2
-        width: parent.width - 24
-        x: 12
-        y: 9
-    }
-    Rectangle {
-        color: Qt.alpha(Color.foreground, 0.06)
-        height: front.implicitHeight
-        radius: 12
-        visible: !root.expanded && root.count > 1
-        width: parent.width - 12
-        x: 6
-        y: 5
-    }
-    Rectangle {
         id: front
 
-        border.color: Qt.alpha(Color.foreground, 0.06)
+        border.color: Qt.alpha(Color.popups.text, 0.06)
         border.width: 1
-        color: Qt.darker(Color.background, 0.91)
-        implicitHeight: content.implicitHeight + 28
-        radius: 12
+        color: Qt.alpha(Color.popups.text, 0.045)
+        implicitHeight: content.implicitHeight + 32
+        radius: 14
         width: parent.width
 
         ColumnLayout {
@@ -79,7 +61,7 @@ Item {
 
             anchors {
                 left: parent.left
-                margins: 14
+                margins: 16
                 right: parent.right
                 top: parent.top
             }
@@ -110,6 +92,7 @@ Item {
                         Text {
                             anchors.centerIn: parent
                             color: Color.accent
+                            font.family: Style.font.family
                             font.pixelSize: 16
                             font.weight: Font.DemiBold
                             text: root.group.app.charAt(0).toUpperCase()
@@ -123,27 +106,43 @@ Item {
                     activeFocusOnTab: root.count > 1
                     implicitHeight: 34
 
-                    Keys.onReturnPressed: root.toggleRequested()
-                    Keys.onSpacePressed: root.toggleRequested()
+                    Keys.onReturnPressed: {
+                        if (root.count > 1)
+                            root.toggleRequested();
+                    }
+                    Keys.onSpacePressed: {
+                        if (root.count > 1)
+                            root.toggleRequested();
+                    }
 
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: -3
+                        color: "transparent"
+                        border.color: Color.accent
+                        border.width: parent.activeFocus ? 1 : 0
+                        radius: 6
+                    }
                     Column {
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: 2
                         width: parent.width
 
                         Text {
-                            color: Color.foreground
+                            color: Color.popups.text
                             elide: Text.ElideRight
-                            font.pixelSize: 13
+                            font.family: Style.font.family
+                            font.pixelSize: 14
                             font.weight: Font.DemiBold
                             text: root.group.app
                             textFormat: Text.PlainText
                             width: parent.width
                         }
                         Text {
-                            color: Color.muted
+                            color: Qt.alpha(Color.popups.text, 0.55)
+                            font.family: Style.font.family
                             font.pixelSize: 11
-                            text: root.count + " notifications  " + (root.expanded ? "⌃" : "⌄")
+                            text: root.count + " notifications"
                             visible: root.count > 1
                         }
                     }
@@ -157,7 +156,7 @@ Item {
                 }
                 ClearButton {
                     help: "Clear " + root.group.app + " notifications"
-                    label: "Clear"
+                    label: "×"
 
                     onClicked: root.clearRequested(root.group.items.map(item => item.id))
                 }
@@ -178,6 +177,13 @@ Item {
                     onClearRequested: root.clearRequested([modelData.id])
                     onOpenRequested: root.openItem(modelData)
                 }
+            }
+            ClearButton {
+                Layout.fillWidth: true
+                visible: root.count > 1
+                label: root.expanded ? "Show less" : "Show " + (root.count - 1) + (root.count === 2 ? " more notification" : " more notifications")
+                help: (root.expanded ? "Collapse " : "Expand ") + root.group.app + " notifications"
+                onClicked: root.toggleRequested()
             }
         }
     }

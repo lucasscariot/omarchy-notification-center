@@ -1,7 +1,14 @@
 # Notification Center for Omarchy
 
-A themed notification drawer with expandable app stacks, individual and bulk
-dismissal, and links back to the sending application. Open it through Omarchy
+A frosted notification drawer with expandable app stacks, individual and bulk
+dismissal, and links back to the sending application. It follows the active
+Omarchy popup palette, including Jialing’s graphite and porcelain variants.
+A full-height drawer, date header, flat app groups with explicit Show more /
+Show less controls, visible keyboard focus, and a dedicated empty state keep
+the hierarchy clear. A draggable scrollbar and locally amplified wheel and
+touchpad input make long histories easier to navigate. The scroll viewport
+uses a rounded mask so overflowing cards retain curved edges. Gesture tracking stays direct, with no
+automatic slide animation. Open it through Omarchy
 IPC, or use the optional two-finger edge gesture helper.
 
 ![Notification Center open on the Omarchy desktop, showing grouped notifications and an expanded app stack](docs/images/notification-center.png)

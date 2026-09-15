@@ -11,7 +11,8 @@ changed notification or gesture behavior, then run `make test` and
 | `Panel.qml` | Drawer layout, gesture socket, open/close state, and IPC |
 | `NotificationStore.qml` | History subprocesses, serialized clear queue, optimistic hiding, activation |
 | `NotificationGroups.js` | Pure group filtering, counting, and ID collection |
-| `AppStack.qml` | App header, stack decoration, and expansion behavior |
+| `AppStack.qml` | Flat app groups and explicit expansion controls |
+| `NotificationList.qml` | Bounded wheel/touchpad scrolling and scrollbar |
 | `NotificationCard.qml` | One notification's content and interaction signals |
 | `ClearButton.qml` | Shared mouse and keyboard clear control |
 | `backend/read_history.py` | Read/normalize/group notifications, atomic dismissal persistence, app activation |

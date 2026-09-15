@@ -18,9 +18,9 @@ Rectangle {
     activeFocusOnTab: true
     border.color: Color.accent
     border.width: activeFocus ? 1 : 0
-    color: area.containsMouse ? Qt.alpha(Color.foreground, 0.16) : Qt.alpha(Color.foreground, 0.07)
-    implicitHeight: 28
-    implicitWidth: text.implicitWidth + 18
+    color: area.containsMouse ? Qt.alpha(Color.popups.text, 0.10) : Qt.alpha(Color.popups.text, 0.045)
+    implicitHeight: 30
+    implicitWidth: Math.max(30, text.implicitWidth + 20)
     radius: 14
 
     Keys.onReturnPressed: clicked()
@@ -30,7 +30,8 @@ Rectangle {
         id: text
 
         anchors.centerIn: parent
-        color: Color.foreground
+        color: Color.popups.text
+        font.family: Style.font.family
         font.pixelSize: root.label === "×" ? 19 : 11
         text: root.label
     }

@@ -8,6 +8,7 @@ import qs.Commons
 Item {
     id: root
 
+    property date openedAt: new Date()
     property bool dragging: false
     property var expandedApps: ({})
     property bool inputEnabled: true
@@ -24,6 +25,7 @@ Item {
             connection.write("closed\n");
     }
     function open() {
+        openedAt = new Date();
         store.refresh();
         dragging = false;
         opened = true;
@@ -57,15 +59,6 @@ Item {
         var next = Object.assign({}, expandedApps);
         next[key] = !next[key];
         expandedApps = next;
-    }
-
-    Behavior on progress {
-        enabled: !root.dragging
-
-        NumberAnimation {
-            duration: 230
-            easing.type: Easing.OutCubic
-        }
     }
 
     NotificationStore {
@@ -192,7 +185,7 @@ Item {
             Rectangle {
                 anchors.fill: parent
                 color: "black"
-                opacity: root.progress * 0.12
+                opacity: root.progress * 0.04
 
                 MouseArea {
                     anchors.fill: parent
@@ -203,53 +196,55 @@ Item {
             Rectangle {
                 id: drawer
 
-                border.color: Qt.alpha(Color.foreground, 0.18)
+                border.color: Color.popups.border
                 border.width: 1
                 clip: true
-                color: Color.background
-                height: surface.height - 64
-                radius: 18
-                width: Math.min(390, surface.width - 24)
-                x: surface.width - (width + 12) * root.progress
-                y: 48
+                color: Color.popups.background
+                height: Math.max(0, surface.height - y - 16)
+                radius: 20
+                width: Math.min(430, surface.width - 32)
+                x: surface.width - (width + 16) * root.progress
+                y: 44
 
                 ColumnLayout {
                     anchors.fill: parent
-                    anchors.margins: 20
-                    spacing: 16
+                    anchors.margins: 24
+                    spacing: 20
 
                     RowLayout {
                         Layout.fillWidth: true
+                        spacing: 16
 
-                        Text {
+                        ColumnLayout {
                             Layout.fillWidth: true
-                            color: Color.foreground
-                            font.family: Style.font.family
-                            font.pixelSize: 21
-                            font.weight: Font.DemiBold
-                            text: "Notifications"
-                        }
-                        Rectangle {
-                            color: closeArea.containsMouse ? Qt.alpha(Color.foreground, 0.16) : Qt.alpha(Color.foreground, 0.07)
-                            implicitHeight: 30
-                            implicitWidth: 30
-                            radius: 15
-
+                            spacing: 6
                             Text {
-                                anchors.centerIn: parent
-                                color: Color.foreground
-                                font.pixelSize: 22
-                                text: "×"
+                                color: Qt.alpha(Color.popups.text, 0.55)
+                                font.family: Style.font.family
+                                font.pixelSize: 11
+                                font.weight: Font.Medium
+                                font.letterSpacing: 1.2
+                                text: Qt.formatDateTime(root.openedAt, "dddd, d MMMM").toUpperCase()
                             }
-                            MouseArea {
-                                id: closeArea
-
-                                anchors.fill: parent
-                                hoverEnabled: true
-
-                                onClicked: root.close()
+                            Text {
+                                Layout.fillWidth: true
+                                color: Color.popups.text
+                                font.family: Style.font.family
+                                font.pixelSize: 28
+                                font.weight: Font.DemiBold
+                                text: "Notifications"
                             }
                         }
+                        ClearButton {
+                            help: "Close notification center"
+                            label: "×"
+                            onClicked: root.close()
+                        }
+                    }
+                    Rectangle {
+                        Layout.fillWidth: true
+                        implicitHeight: 1
+                        color: Qt.alpha(Color.popups.text, 0.09)
                     }
                     RowLayout {
                         Layout.fillWidth: true
@@ -257,9 +252,10 @@ Item {
 
                         Text {
                             Layout.fillWidth: true
-                            color: Color.muted
+                            color: Qt.alpha(Color.popups.text, 0.6)
+                            font.family: Style.font.family
                             font.pixelSize: 12
-                            text: store.count + " notifications"
+                            text: store.count + (store.count === 1 ? " notification" : " notifications") + " · " + store.notifications.length + (store.notifications.length === 1 ? " app" : " apps")
                         }
                         ClearButton {
                             help: "Clear all notifications from the center"
@@ -276,34 +272,54 @@ Item {
                         visible: store.errorMessage.length > 0
                         wrapMode: Text.Wrap
                     }
-                    Text {
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.topMargin: 36
-                        color: Color.muted
-                        font.pixelSize: 15
-                        text: "You’re all caught up"
-                        visible: store.notifications.length === 0
+                    Item {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        visible: store.notifications.length === 0 && store.errorMessage.length === 0
+                        Column {
+                            anchors.centerIn: parent
+                            width: parent.width
+                            spacing: 12
+                            Rectangle {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                width: 64
+                                height: 64
+                                radius: 32
+                                color: Qt.alpha(Color.accent, 0.10)
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: "✓"
+                                    color: Color.accent
+                                    font.family: Style.font.family
+                                    font.pixelSize: 28
+                                }
+                            }
+                            Text {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: "All caught up"
+                                color: Color.popups.text
+                                font.family: Style.font.family
+                                font.pixelSize: 20
+                                font.weight: Font.DemiBold
+                            }
+                            Text {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: "New notifications will appear here."
+                                color: Qt.alpha(Color.popups.text, 0.55)
+                                font.family: Style.font.family
+                                font.pixelSize: 13
+                            }
+                        }
                     }
-                    ListView {
+                    NotificationList {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        boundsBehavior: Flickable.StopAtBounds
-                        clip: true
                         model: store.notifications
-                        spacing: 14
-
-                        delegate: AppStack {
-                            required property var modelData
-
-                            expanded: !!root.expandedApps[modelData.key]
-                            group: modelData
-                            height: implicitHeight
-                            width: ListView.view.width
-
-                            onActivateRequested: item => store.activate(item)
-                            onClearRequested: ids => store.clearItems(ids)
-                            onToggleRequested: root.toggleStack(modelData.key)
-                        }
+                        visible: store.notifications.length > 0
+                        expandedApps: root.expandedApps
+                        onActivateRequested: item => store.activate(item)
+                        onClearRequested: ids => store.clearItems(ids)
+                        onToggleRequested: key => root.toggleStack(key)
                     }
                 }
             }
