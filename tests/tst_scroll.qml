@@ -42,6 +42,12 @@ TestCase {
         tryVerify(function () {
             return view.contentY >= 20;
         }, 1000, "A low-delta wheel event must move at least 20 px, got " + view.contentY);
+        for (var step = 0; step < 40; step++) {
+            var before = view.contentY;
+            mouseWheel(view, 150, 110, 0, -18, Qt.NoButton);
+            wait(5);
+            verify(view.contentY >= before + 20, "Scrolling stopped after " + step + " events at " + before);
+        }
         var previous = view.contentY;
         mouseWheel(view, 150, 110, 0, 18, Qt.NoButton);
         tryVerify(function () {
