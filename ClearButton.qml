@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls
+import qs.Ui
 import qs.Commons
 
 Rectangle {
@@ -13,9 +13,6 @@ Rectangle {
 
     Accessible.name: help
     Accessible.role: Accessible.Button
-    ToolTip.delay: 600
-    ToolTip.text: root.help
-    ToolTip.visible: area.containsMouse
     activeFocusOnTab: true
     border.color: Color.accent
     border.width: activeFocus ? 1 : 0
@@ -55,6 +52,10 @@ Rectangle {
                 color: Qt.alpha(Color.popups.text, area.containsMouse ? 0.9 : 0.55)
             }
         }
+    }
+    PanelToolTip {
+        text: root.help
+        visible: root.help !== "" && area.containsMouse
     }
     MouseArea {
         id: area
