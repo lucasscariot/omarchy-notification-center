@@ -311,15 +311,21 @@ Item {
                             }
                         }
                     }
-                    NotificationList {
+                    Item {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        model: store.notifications
                         visible: store.notifications.length > 0
-                        expandedApps: root.expandedApps
-                        onActivateRequested: item => store.activate(item)
-                        onClearRequested: ids => store.clearItems(ids)
-                        onToggleRequested: key => root.toggleStack(key)
+
+                        NotificationList {
+                            anchors.fill: parent
+                            // Put the scrollbar in the panel padding so cards align with the header.
+                            anchors.rightMargin: -scrollbarGutter
+                            model: store.notifications
+                            expandedApps: root.expandedApps
+                            onActivateRequested: item => store.activate(item)
+                            onClearRequested: ids => store.clearItems(ids)
+                            onToggleRequested: key => root.toggleStack(key)
+                        }
                     }
                 }
             }

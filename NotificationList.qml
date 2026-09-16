@@ -5,6 +5,7 @@ import qs.Commons
 
 ListView {
     id: root
+    readonly property real scrollbarGutter: 12
     property real scrollSpeed: 3
     property var expandedApps: ({})
     signal activateRequested(var item)
@@ -25,7 +26,7 @@ ListView {
             layer.enabled: true
             visible: false
             Rectangle {
-                width: parent.width - 12
+                width: parent.width - root.scrollbarGutter
                 height: parent.height
                 radius: 14
                 color: "white"
@@ -69,7 +70,7 @@ ListView {
         expanded: !!root.expandedApps[modelData.key]
         group: modelData
         height: implicitHeight
-        width: ListView.view.width - 12
+        width: ListView.view.width - root.scrollbarGutter
         onActivateRequested: item => root.activateRequested(item)
         onClearRequested: ids => root.clearRequested(ids)
         onToggleRequested: root.toggleRequested(modelData.key)
