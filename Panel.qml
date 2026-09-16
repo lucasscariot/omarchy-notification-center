@@ -196,15 +196,17 @@ Item {
             Rectangle {
                 id: drawer
 
+                readonly property real outerMargin: 10
+
                 border.color: Color.popups.border
                 border.width: 1
                 clip: true
                 color: Color.popups.background
-                height: Math.max(0, surface.height - y - 16)
-                radius: 20
-                width: Math.min(430, surface.width - 32)
-                x: surface.width - (width + 16) * root.progress
-                y: 44
+                height: Math.max(0, surface.height - y - outerMargin)
+                radius: 9
+                width: Math.min(430, surface.width - outerMargin * 2)
+                x: surface.width - (width + outerMargin) * root.progress
+                y: outerMargin
 
                 ColumnLayout {
                     anchors.fill: parent

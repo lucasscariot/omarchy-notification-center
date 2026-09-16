@@ -19,10 +19,10 @@ Rectangle {
     activeFocusOnTab: true
     border.color: Color.accent
     border.width: activeFocus ? 1 : 0
-    color: area.containsMouse ? Qt.alpha(Color.popups.text, 0.10) : (iconOnly ? "transparent" : Qt.alpha(Color.popups.text, 0.045))
-    implicitHeight: 30
-    implicitWidth: iconOnly ? 30 : Math.max(30, text.implicitWidth + 20)
-    radius: 14
+    color: Qt.alpha(Color.popups.text, area.containsMouse ? (iconOnly ? 0.13 : 0.10) : (iconOnly ? 0.06 : 0.045))
+    implicitHeight: iconOnly ? 22 : 30
+    implicitWidth: iconOnly ? 22 : Math.max(30, text.implicitWidth + 20)
+    radius: iconOnly ? Math.min(width, height) / 2 : 14
 
     Keys.onReturnPressed: clicked()
     Keys.onSpacePressed: clicked()
@@ -39,15 +39,15 @@ Rectangle {
     }
     Item {
         anchors.centerIn: parent
-        width: 12
-        height: 12
+        width: 10
+        height: 10
         visible: root.iconOnly
         Repeater {
             model: [45, -45]
             Rectangle {
                 required property int modelData
                 anchors.centerIn: parent
-                width: 12
+                width: 10
                 height: 1.25
                 radius: 0.625
                 rotation: modelData
