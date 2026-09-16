@@ -7,6 +7,7 @@ ListView {
     id: root
     readonly property real scrollbarGutter: 12
     property real scrollSpeed: 3
+    property real touchpadScrollSpeed: 8
     property var expandedApps: ({})
     signal activateRequested(var item)
     signal clearRequested(var ids)
@@ -49,9 +50,11 @@ ListView {
             var delta = event.pixelDelta.y !== 0 ? event.pixelDelta.y : event.angleDelta.y / 120 * 48;
             if (delta === 0)
                 return;
+            var touchpad = event.pixelDelta.y !== 0 || event.device.type === PointerDevice.TouchPad || event.phase !== Qt.NoScrollPhase;
+            var speed = touchpad ? root.touchpadScrollSpeed : root.scrollSpeed;
             root.cancelFlick();
             var end = root.originY + Math.max(0, root.contentHeight - root.height);
-            root.contentY = Math.max(root.originY, Math.min(end, root.contentY - delta * root.scrollSpeed));
+            root.contentY = Math.max(root.originY, Math.min(end, root.contentY - delta * speed));
             event.accepted = true;
         }
     }

@@ -5,7 +5,7 @@ PYTHON ?= python3
 
 .PHONY: test test-python test-qml test-gesture test-runtime helper validate
 
-test: test-python test-qml test-gesture
+test: test-python test-qml test-touchpad test-gesture
 
 test-python:
 	PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=backend $(PYTHON) -m unittest discover -s tests -v
@@ -33,3 +33,10 @@ build/edge-notifications-helper: gestures/helper.cpp gestures/gesture.hpp | buil
 validate:
 	omarchy plugin validate .
 	@for file in *.qml; do $(QT_BIN)/qmlformat -n "$$file" >/dev/null || exit; done
+
+.PHONY: test-touchpad
+test-touchpad: build/test_touchpad_scroll
+	QT_QPA_PLATFORM=offscreen QT_QPA_PLATFORMTHEME= QT_QUICK_BACKEND=software ./build/test_touchpad_scroll
+
+build/test_touchpad_scroll: tests/touchpad_scroll.cpp | build
+	$(CXX) $(CXXFLAGS) -fPIC $< $$(pkg-config --cflags --libs Qt6Quick) -o $@

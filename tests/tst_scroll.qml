@@ -48,6 +48,10 @@ TestCase {
             wait(5);
             verify(view.contentY >= before + 20, "Scrolling stopped after " + step + " events at " + before);
         }
+        var savedY = view.contentY;
+        view.model = JSON.parse(JSON.stringify(groups));
+        wait(100);
+        verify(Math.abs(view.contentY - savedY) < 1, "An unchanged history refresh must preserve scroll position: " + savedY + " -> " + view.contentY);
         var previous = view.contentY;
         mouseWheel(view, 150, 110, 0, 18, Qt.NoButton);
         tryVerify(function () {

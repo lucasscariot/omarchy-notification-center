@@ -38,6 +38,10 @@ the real Quickshell plugin is embedded in its executable. They exercise
 group filtering, expansion, activation signals, and keyboard/mouse clearing.
 The pure C++ tests do not open input devices. `make helper` compiles the real
 proxy with warnings treated as errors but does not validate physical input.
+`make test-touchpad` sends pixel-based wheel events, including touchpad phases,
+through a real Qt Quick window containing `NotificationList`. It checks scroll
+distance, momentum, reversal, and viewport bounds without opening input devices.
+This needs Qt 6 Quick development headers; it is included in `make test`.
 `make test-runtime` runs the real Quickshell notification store with a synthetic
 backend in a temporary directory. It checks queued clear ordering, rollback
 after a failed clear, activation error reporting, and paths containing spaces.
