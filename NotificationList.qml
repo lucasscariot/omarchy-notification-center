@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects
 import qs.Commons
+import qs.Commons as Commons
 
 ListView {
     id: root
@@ -65,7 +66,7 @@ ListView {
         contentItem: Rectangle {
             implicitWidth: 4
             radius: 2
-            color: Qt.alpha(Color.popups.text, parent.pressed ? 0.5 : 0.22)
+            color: Qt.alpha(Commons.Color.popups.text, parent.pressed ? 0.5 : 0.22)
         }
     }
     delegate: AppStack {

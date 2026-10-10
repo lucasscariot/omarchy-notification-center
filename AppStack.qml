@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
+import qs.Commons as Commons
 
 Item {
     id: root
@@ -47,9 +48,9 @@ Item {
     Rectangle {
         id: front
 
-        border.color: Qt.alpha(Color.popups.text, 0.06)
+        border.color: Qt.alpha(Commons.Color.popups.text, 0.06)
         border.width: 1
-        color: Qt.alpha(Color.popups.text, 0.045)
+        color: Qt.alpha(Commons.Color.popups.text, 0.045)
         implicitHeight: content.implicitHeight + 32
         radius: 14
         width: parent.width
@@ -85,13 +86,13 @@ Item {
                     }
                     Rectangle {
                         anchors.fill: parent
-                        color: Qt.alpha(Color.accent, 0.18)
+                        color: Qt.alpha(Commons.Color.accent, 0.18)
                         radius: 8
                         visible: icon.status !== Image.Ready
 
                         Text {
                             anchors.centerIn: parent
-                            color: Color.accent
+                            color: Commons.Color.accent
                             font.family: Style.font.family
                             font.pixelSize: 16
                             font.weight: Font.DemiBold
@@ -119,7 +120,7 @@ Item {
                         anchors.fill: parent
                         anchors.margins: -3
                         color: "transparent"
-                        border.color: Color.accent
+                        border.color: Commons.Color.accent
                         border.width: parent.activeFocus ? 1 : 0
                         radius: 6
                     }
@@ -129,7 +130,7 @@ Item {
                         width: parent.width
 
                         Text {
-                            color: Color.popups.text
+                            color: Commons.Color.popups.text
                             elide: Text.ElideRight
                             font.family: Style.font.family
                             font.pixelSize: 14
@@ -139,7 +140,7 @@ Item {
                             width: parent.width
                         }
                         Text {
-                            color: Qt.alpha(Color.popups.text, 0.55)
+                            color: Qt.alpha(Commons.Color.popups.text, 0.55)
                             font.family: Style.font.family
                             font.pixelSize: 11
                             text: root.count + " notifications"

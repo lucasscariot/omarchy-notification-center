@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 import qs.Commons
+import qs.Commons as Commons
 
 Item {
     id: root
@@ -198,10 +199,10 @@ Item {
 
                 readonly property real outerMargin: 10
 
-                border.color: Color.popups.border
+                border.color: Commons.Color.popups.border
                 border.width: 1
                 clip: true
-                color: Color.popups.background
+                color: Commons.Color.popups.background
                 height: Math.max(0, surface.height - y - outerMargin)
                 radius: 9
                 width: Math.min(430, surface.width - outerMargin * 2)
@@ -221,7 +222,7 @@ Item {
                             Layout.fillWidth: true
                             spacing: 6
                             Text {
-                                color: Qt.alpha(Color.popups.text, 0.55)
+                                color: Qt.alpha(Commons.Color.popups.text, 0.55)
                                 font.family: Style.font.family
                                 font.pixelSize: 11
                                 font.weight: Font.Medium
@@ -230,7 +231,7 @@ Item {
                             }
                             Text {
                                 Layout.fillWidth: true
-                                color: Color.popups.text
+                                color: Commons.Color.popups.text
                                 font.family: Style.font.family
                                 font.pixelSize: 28
                                 font.weight: Font.DemiBold
@@ -246,7 +247,7 @@ Item {
                     Rectangle {
                         Layout.fillWidth: true
                         implicitHeight: 1
-                        color: Qt.alpha(Color.popups.text, 0.09)
+                        color: Qt.alpha(Commons.Color.popups.text, 0.09)
                     }
                     RowLayout {
                         Layout.fillWidth: true
@@ -254,7 +255,7 @@ Item {
 
                         Text {
                             Layout.fillWidth: true
-                            color: Qt.alpha(Color.popups.text, 0.6)
+                            color: Qt.alpha(Commons.Color.popups.text, 0.6)
                             font.family: Style.font.family
                             font.pixelSize: 12
                             text: store.count + (store.count === 1 ? " notification" : " notifications") + " · " + store.notifications.length + (store.notifications.length === 1 ? " app" : " apps")
@@ -268,7 +269,7 @@ Item {
                     }
                     Text {
                         Layout.fillWidth: true
-                        color: Color.urgent
+                        color: Commons.Color.urgent
                         font.pixelSize: 12
                         text: store.errorMessage
                         visible: store.errorMessage.length > 0
@@ -287,11 +288,11 @@ Item {
                                 width: 64
                                 height: 64
                                 radius: 32
-                                color: Qt.alpha(Color.accent, 0.10)
+                                color: Qt.alpha(Commons.Color.accent, 0.10)
                                 Text {
                                     anchors.centerIn: parent
                                     text: "✓"
-                                    color: Color.accent
+                                    color: Commons.Color.accent
                                     font.family: Style.font.family
                                     font.pixelSize: 28
                                 }
@@ -299,7 +300,7 @@ Item {
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: "All caught up"
-                                color: Color.popups.text
+                                color: Commons.Color.popups.text
                                 font.family: Style.font.family
                                 font.pixelSize: 20
                                 font.weight: Font.DemiBold
@@ -307,7 +308,7 @@ Item {
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: "New notifications will appear here."
-                                color: Qt.alpha(Color.popups.text, 0.55)
+                                color: Qt.alpha(Commons.Color.popups.text, 0.55)
                                 font.family: Style.font.family
                                 font.pixelSize: 13
                             }

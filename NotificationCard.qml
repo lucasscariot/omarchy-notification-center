@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import qs.Commons
+import qs.Commons as Commons
 
 ColumnLayout {
     id: notification
@@ -21,7 +22,7 @@ ColumnLayout {
         Layout.bottomMargin: 5
         Layout.fillWidth: true
         Layout.topMargin: 4
-        color: Qt.alpha(Color.popups.text, 0.1)
+        color: Qt.alpha(Commons.Color.popups.text, 0.1)
         implicitHeight: 1
         visible: notification.separatorVisible
     }
@@ -30,7 +31,7 @@ ColumnLayout {
 
         Text {
             Layout.fillWidth: true
-            color: Qt.alpha(Color.popups.text, 0.5)
+            color: Qt.alpha(Commons.Color.popups.text, 0.5)
             font.family: Style.font.family
             font.pixelSize: 11
             text: Qt.formatDateTime(new Date(notification.item.timestamp), "ddd HH:mm")
@@ -49,7 +50,7 @@ ColumnLayout {
         Accessible.role: !notification.expanded && notification.count > 1 ? Accessible.Button : Accessible.Link
         Layout.fillWidth: true
         activeFocusOnTab: true
-        color: Color.popups.text
+        color: Commons.Color.popups.text
         elide: Text.ElideRight
         font.family: Style.font.family
         font.pixelSize: 14
@@ -64,8 +65,8 @@ ColumnLayout {
             anchors.margins: -3
             z: -1
             radius: 5
-            color: parent.activeFocus ? Qt.alpha(Color.accent, 0.12) : "transparent"
-            border.color: Color.accent
+            color: parent.activeFocus ? Qt.alpha(Commons.Color.accent, 0.12) : "transparent"
+            border.color: Commons.Color.accent
             border.width: parent.activeFocus ? 1 : 0
         }
         Keys.onReturnPressed: notification.openRequested()
@@ -80,7 +81,7 @@ ColumnLayout {
     }
     Text {
         Layout.fillWidth: true
-        color: Qt.alpha(Color.popups.text, 0.70)
+        color: Qt.alpha(Commons.Color.popups.text, 0.70)
         elide: Text.ElideRight
         font.family: Style.font.family
         font.pixelSize: 13

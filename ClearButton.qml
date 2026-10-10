@@ -1,6 +1,7 @@
 import QtQuick
 import qs.Ui
 import qs.Commons
+import qs.Commons as Commons
 
 Rectangle {
     id: root
@@ -14,9 +15,9 @@ Rectangle {
     Accessible.name: help
     Accessible.role: Accessible.Button
     activeFocusOnTab: true
-    border.color: Color.accent
+    border.color: Commons.Color.accent
     border.width: activeFocus ? 1 : 0
-    color: Qt.alpha(Color.popups.text, area.containsMouse ? (iconOnly ? 0.13 : 0.10) : (iconOnly ? 0.06 : 0.045))
+    color: Qt.alpha(Commons.Color.popups.text, area.containsMouse ? (iconOnly ? 0.13 : 0.10) : (iconOnly ? 0.06 : 0.045))
     implicitHeight: iconOnly ? 22 : 30
     implicitWidth: iconOnly ? 22 : Math.max(30, text.implicitWidth + 20)
     radius: iconOnly ? Math.min(width, height) / 2 : 14
@@ -28,7 +29,7 @@ Rectangle {
         id: text
 
         anchors.centerIn: parent
-        color: Color.popups.text
+        color: Commons.Color.popups.text
         font.family: Style.font.family
         font.pixelSize: 11
         text: root.label
@@ -49,7 +50,7 @@ Rectangle {
                 radius: 0.625
                 rotation: modelData
                 antialiasing: true
-                color: Qt.alpha(Color.popups.text, area.containsMouse ? 0.9 : 0.55)
+                color: Qt.alpha(Commons.Color.popups.text, area.containsMouse ? 0.9 : 0.55)
             }
         }
     }
